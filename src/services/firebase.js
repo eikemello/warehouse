@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 
-// import { getDatabase } from "firebase/database";
+import { getDatabase, ref, onValue } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCsbhH466rD067_2kH2-4e9yz2rfQ04lic",
@@ -13,21 +13,22 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const database = getDatabase();
+const dbRef = ref(database, '/Equipaments');
+
+
+try {
+  onValue(dbRef, (snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+      const childKey = childSnapshot.key;
+      const childData = childSnapshot.val();
+      console.log(childKey, childData)
+    });
+  }, {
+    onlyOnce: true
+  });
+} catch (err) {
+  console.log(err);
+}
 
 export default app;
-
-// const { fireInit } = initializeApp(firebaseConfig);
-// console.log(fireInit)
-// const database = getDatabase(fireInit);
-// console.log(database);
-
-// try {
-//   fireInit.database().ref("Equipaments").once('value').then(function (snapshot) {
-//     console.log('teste database');
-//     console.log(snapshot);
-//   });
-// } catch (err) {
-//   console.log(err);
-// }
-
-// export default fireInit;
