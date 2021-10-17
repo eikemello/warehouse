@@ -1,9 +1,10 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { Router, Switch, Route, Redirect } from 'react-router-dom'
+import history from './history';
 
 import { useAuth } from './hooks/useAuth';
-import Dashboard from './pages/Dashboard';
 
+import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 
 const PrivateRoute = ({ isPrivate, ...rest }) => {
@@ -22,7 +23,7 @@ const PrivateRoute = ({ isPrivate, ...rest }) => {
 
 const Routes = () => (
   <>
-    <Router>
+    <Router history={history}>
       <Switch>
         <Route path='/' exact component={Login} />
         <PrivateRoute isPrivate path='/dashboard' component={Dashboard} />
