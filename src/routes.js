@@ -1,14 +1,19 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+
+import { useAuth } from './hooks/useAuth';
+import Dashboard from './pages/Dashboard';
+
+import Login from './pages/Login';
 
 const PrivateRoute = ({ isPrivate, ...rest }) => {
-  // const { isLoading, isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticating, isAuthenticated } = useAuth();
 
-  // if (isLoading) {
-  //   return <h1>Loading...</h1>;
-  // }
+  if (isAuthenticating) {
+    return <h1>Loading...</h1>;
+  }
 
-  if (isPrivate) {
+  if (isPrivate && !isAuthenticated) {
     return <Redirect to="/" />;
   }
 
@@ -19,8 +24,8 @@ const Routes = () => (
   <>
     <Router>
       <Switch>
-        <Route path='/' exact component={() => <h1>Login</h1> } />
-        <PrivateRoute isPrivate path='/dashboard' component={() => <h1>Dashboard</h1>} />
+        <Route path='/' exact component={Login} />
+        <PrivateRoute isPrivate path='/dashboard' component={Dashboard} />
         {/* <Route path='/pesquisar-item' component={} /> */}
         {/* <Route path='/todos-ativos' component={} /> */}
         <Route path="*" component={() => <h1>Page not found</h1>} />
