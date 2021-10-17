@@ -51,7 +51,7 @@ const Login = () => {
 
   return (
     <Grid templateColumns="repeat(2, 1fr)" gap={6} height="100vh">
-      <Flex justifyContent="center" alignItems="center" borderRight="1px" borderColor="gray.200">
+      <Flex justifyContent="center" alignItems="center">
         <Box
           w={[300, 400, 500]}
           border="1px"
@@ -73,6 +73,7 @@ const Login = () => {
                 <FormLabel>Email:</FormLabel>
                 <Input
                   type="email"
+                  autoComplete="false"
                   size="lg"
                   onChange={event => setEmail(event.currentTarget.value)}
                   value={email}
@@ -85,6 +86,7 @@ const Login = () => {
                 <FormLabel>Password:</FormLabel>
                 <Input
                   type="password"
+                  autoComplete="false"
                   size="lg"
                   onChange={event => setPassword(event.currentTarget.value)}
                   value={password}
@@ -113,7 +115,7 @@ const Login = () => {
       </Flex>
 
       <Flex justifyContent="center" alignItems="center">
-        <Box boxSize="sm" borderRadius="md">
+        <Box boxSize="xl" borderRadius="md">
           <Image src={logoImg} alt="Logo" />
         </Box>
       </Flex>

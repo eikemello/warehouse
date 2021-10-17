@@ -16,7 +16,8 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 
 const dbRefEquipaments = ref(database, '/Equipaments');
-const dbRefEquipamentsOut = ref(database, '/EquipamentsOut');
+const dbRefLogWarehouse = ref(database, '/Logs/Warehouse');
+export var logStock = []
 
 export const getEquipaments = () => {
   const equipaments = []
@@ -41,25 +42,26 @@ export const getEquipaments = () => {
     console.log(err)
   }
 
-  // console.log(equipaments)
+  console.log(equipaments)
   return equipaments
 }
 
-export const getEquipamentsOut = () => {
-  const equipamentsOut = []
+const getLogWarehouse = () => {
+  logStock = []
 
   try {
-    onValue(dbRefEquipamentsOut, (snapshot) => {
+    onValue(dbRefLogWarehouse, (snapshot) => {
       snapshot.forEach((childSnapshot) => {
         const childKey = childSnapshot.key;
         const childData = childSnapshot.val();
+       // childData['date'] = childKey;
 
-        const equipament = {
-          key: childKey,
-          data: childData
+        const log = {
+          //key: childKey,
+          data: childData, 
         }
 
-        equipamentsOut.push(equipament)
+        logStock.push(log)
       });
     }, {
       onlyOnce: true
@@ -68,10 +70,9 @@ export const getEquipamentsOut = () => {
     console.log(err)
   }
 
-  // console.log(equipamentsOut)
-  return equipamentsOut
+  console.log(logStock)
 }
 
-getEquipaments()
+getLogWarehouse()
 
 export default app;
