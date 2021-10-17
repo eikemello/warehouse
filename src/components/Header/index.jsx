@@ -1,4 +1,4 @@
-import { Box, Center, IconButton, Text, Flex, Tooltip } from '@chakra-ui/react'
+import { Box, Center, IconButton, Text, Grid, Tooltip } from '@chakra-ui/react'
 import { ChevronRightIcon, CloseIcon } from '@chakra-ui/icons'
 
 import { useAuth } from '../../hooks/useAuth'
@@ -7,8 +7,16 @@ const Header = ({ showSidebarButton = true, onShowSidebar }) => {
   const { user, logOut } = useAuth()
 
   return (
-    <Flex bg="blue" p={4} color="white" justifyContent="center">
-      <Box flex="1">
+    <Grid
+      bg="blue"
+      color="white"
+      templateColumns="repeat(3,1fr)"
+      gap={4}
+      py={4}
+      px={2}
+      width="100vw"
+    >
+      <Box display="flex" alignItems="center" justifyContent="start" paddingLeft={4}>
         {showSidebarButton && (
           <IconButton
             icon={<ChevronRightIcon w={8} h={8} />}
@@ -18,15 +26,18 @@ const Header = ({ showSidebarButton = true, onShowSidebar }) => {
           />
         )}
       </Box>
-      <Center flex="1" h="40px">
-        <Text fontSize="xl" letterSpacing={2}>Warehouse</Text>
-      </Center>
-      <Box flex="1" />
 
-      <Center flex="1" h="40px">
-        <Text fontWeight="semibold">{
-          user && user.email.substring(0, user.email.indexOf("@"))
-        }
+      <Box display="flex" alignItems="center" justifyContent="center">
+        <Center flex="1" h="40px">
+          <Text fontSize="xl" letterSpacing={2}>Warehouse</Text>
+        </Center>
+      </Box>
+
+      <Box display="flex" alignItems="center" justifyContent="end" paddingRight={4} >
+        <Text fontWeight="semibold">
+          {
+            user && user.email.substring(0, user.email.indexOf("@"))
+          }
         </Text>
         <Tooltip label="Log out">
           <IconButton
@@ -36,8 +47,8 @@ const Header = ({ showSidebarButton = true, onShowSidebar }) => {
             onClick={logOut}
           />
         </Tooltip>
-      </Center>
-    </Flex>
+      </Box>
+    </Grid>
   )
 }
 
