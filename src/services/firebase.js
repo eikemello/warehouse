@@ -18,9 +18,11 @@ const database = getDatabase();
 const dbRefEquipaments = ref(database, '/Equipaments');
 const dbRefLogWarehouse = ref(database, '/Logs/Warehouse');
 export var logStock = []
+export var transfers = []
+export var equipaments = []
 
-export const getEquipaments = () => {
-  const equipaments = []
+const getEquipaments = () => {
+  equipaments = []
 
   try {
     onValue(dbRefEquipaments, (snapshot) => {
@@ -43,7 +45,6 @@ export const getEquipaments = () => {
   }
 
   console.log(equipaments)
-  return equipaments
 }
 
 const getLogWarehouse = () => {
@@ -54,10 +55,9 @@ const getLogWarehouse = () => {
       snapshot.forEach((childSnapshot) => {
         const childKey = childSnapshot.key;
         const childData = childSnapshot.val();
-       // childData['date'] = childKey;
 
         const log = {
-          //key: childKey,
+          key: childKey,
           data: childData, 
         }
 
@@ -71,6 +71,31 @@ const getLogWarehouse = () => {
   }
 
   console.log(logStock)
+}
+
+const getLogTransfers = () => {
+  transfers = []
+
+  try {
+    onValue(dbRefLogWarehouse, (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        const childKey = childSnapshot.key;
+        const childData = childSnapshot.val();
+
+        const transfer = {
+          key: childKey,
+          data: childData, 
+        }
+
+        transfer.push(transfer)
+      });
+    }, {
+      onlyOnce: true
+    });
+  } catch (err) {
+    console.log(err)
+  }
+  console.log(transfers)
 }
 
 getLogWarehouse()

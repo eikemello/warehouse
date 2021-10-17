@@ -8,7 +8,7 @@ const Header = ({ showSidebarButton = true, onShowSidebar }) => {
 
   return (
     <Grid
-      bg="blue"
+      bg="purple"
       color="white"
       templateColumns="repeat(3,1fr)"
       gap={4}
