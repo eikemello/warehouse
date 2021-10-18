@@ -50,19 +50,19 @@ const Login = () => {
 
 
   return (
-    <Grid templateColumns="repeat(2, 1fr)" gap={6} height="100vh">
+    <Grid templateColumns="repeat(2, 1fr)" gap={6} height="100vh" background="lightgray">
       <Flex justifyContent="center" alignItems="center">
         <Box
-          w={[300, 400, 500]}
+          w={[400, 500, 600]}
           border="1px"
-          borderColor="gray.200"
+          borderColor="purple.200"
           borderRadius="md"
           padding={4}
           textAlign="left"
           boxShadow="lg"
         >
           <Box py={2}>
-            <Heading>Login</Heading>
+            <Heading>Company Warehouse</Heading>
           </Box>
 
           <form onSubmit={handleSubmit}>
@@ -70,11 +70,12 @@ const Login = () => {
 
             <Box py={2}>
               <FormControl id="email" isRequired >
-                <FormLabel>Email:</FormLabel>
+                <FormLabel>email:</FormLabel>
                 <Input
                   type="email"
                   autoComplete="false"
                   size="lg"
+                  borderColor="purple.200"
                   onChange={event => setEmail(event.currentTarget.value)}
                   value={email}
                 />
@@ -83,11 +84,12 @@ const Login = () => {
 
             <Box py={2}>
               <FormControl id="password" isRequired >
-                <FormLabel>Password:</FormLabel>
+                <FormLabel>password:</FormLabel>
                 <Input
                   type="password"
                   autoComplete="false"
                   size="lg"
+                  borderColor="purple.200"
                   onChange={event => setPassword(event.currentTarget.value)}
                   value={password}
                 />
@@ -99,7 +101,7 @@ const Login = () => {
                 width="full"
                 mt={4}
                 type="submit"
-                colorScheme="blue"
+                colorScheme="purple"
                 size="lg"
                 disabled={isLoading}
               >
@@ -115,7 +117,7 @@ const Login = () => {
       </Flex>
 
       <Flex justifyContent="center" alignItems="center">
-        <Box boxSize="xl" borderRadius="md">
+        <Box boxSize="max" borderRadius="md">
           <Image src={logoImg} alt="Logo" />
         </Box>
       </Flex>

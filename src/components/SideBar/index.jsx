@@ -14,13 +14,13 @@ import { Link } from 'react-router-dom'
 const SidebarContent = ({ onClick }) => (
   <VStack>
     <Button w="100%">
-      <Link to="/sl">Sei la</Link>
+      <Link to="/sl">Dashboard</Link>
     </Button>
     <Button w="100%">
-      <Link to="">Sei la</Link>
+      <Link to="">Searchs</Link>
     </Button>
     <Button w="100%">
-      <Link to="">Sei la</Link>
+      <Link to="">All assets</Link>
     </Button>
   </VStack>
 )
