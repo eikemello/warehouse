@@ -6,6 +6,8 @@ import { useAuth } from './hooks/useAuth';
 
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
+import Searchs from './pages/Search';
+//import AllAssets from './pages/AllAssets';
 
 const PrivateRoute = ({ isPrivate, ...rest }) => {
   const { isAuthenticating, isAuthenticated } = useAuth();
@@ -27,8 +29,8 @@ const Routes = () => (
       <Switch>
         <Route path='/' exact component={Login} />
         <PrivateRoute isPrivate path='/dashboard' component={Dashboard} />
-        {/* <Route path='/pesquisar-item' component={} /> */}
-        {/* <Route path='/todos-ativos' component={} /> */}
+        <PrivateRoute path='/searchs' component={Searchs} /> 
+        <PrivateRoute path='/all-assets' component={Searchs} />
         <Route path="*" component={() => <h1>Page not found</h1>} />
       </Switch>
     </Router>

@@ -164,25 +164,25 @@ const Dashboard = () => {
       <Grid templateColumns="repeat(5, 1fr)" gap={2} p={3}>
         <Box w="100%" h="20" bg="green.100">
           <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
-          <Image src={warehouse_icon} w={16} h={16} />
+            <Image src={warehouse_icon} w={16} h={16} />
             <p>1230 Itens totais</p>
           </Flex>
         </Box>
         <Box w="100%" h="20" bg="green.100">
           <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
-            <Image src={notebook_icon}w={16} h={16}/>
+            <Image src={notebook_icon} w={16} h={16} />
             <p>348 Notebooks</p>
           </Flex>
         </Box>
         <Box w="100%" h="20" bg="green.100">
           <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
-          <Image src={monitor_icon} w={16} h={16} />
+            <Image src={monitor_icon} w={16} h={16} />
             <p>264 Monitores</p>
           </Flex>
         </Box>
         <Box w="100%" h="20" bg="green.100">
           <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
-          <Image src={smartphone_icon} w={16} h={16}/>
+            <Image src={smartphone_icon} w={16} h={16} />
             <p>167   Smartphones</p>
           </Flex>
         </Box>
@@ -218,7 +218,7 @@ const Dashboard = () => {
         </GridItem>
         <GridItem colSpan={4} bg="lightgray">
           <Box boxSize="xl" borderRadius="md">
-            <Image src={add_asset_icon} alt="Logo"  w={30} h={30} />
+            <Image src={add_asset_icon} alt="Logo" w={30} h={30} />
           </Box>
         </GridItem>
       </Grid>
