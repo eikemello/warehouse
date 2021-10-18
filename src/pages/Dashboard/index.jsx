@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Box, Grid, Image, GridItem } from '@chakra-ui/react'
+import { Box, Grid, Image, Flex, GridItem } from '@chakra-ui/react'
 
 import Header from '../../components/Header'
 import Sidebar from '../../components/SideBar'
@@ -8,9 +8,14 @@ import MUIDataTable from "mui-datatables"
 import { logStock, transfers } from '../../services/firebase'
 
 
+import notebook_icon from '../../assets/notebook_icon.png'
+import monitor_icon from '../../assets/monitor_icon.png'
+import smartphone_icon from '../../assets/smartphone_icon.png'
+import warehouse_icon from '../../assets/warehouse_icon.png'
+import add_asset_icon from '../../assets/add_asset_icon.png'
+import transfer_icon from '../../assets/transfer_icon.png'
 import logoImg from '../../assets/login_image.png'
-import { Icon } from "@chakra-ui/react"
-import { AddIcon, PhoneIcon } from '@chakra-ui/icons'
+
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true)
@@ -156,12 +161,37 @@ const Dashboard = () => {
           showSidebarButton={true}
         />
       </Box>
-      <Grid templateColumns="repeat(4, 1fr)" gap={2} p={3}>
-        <Box w="100%" h="20" bg="blue.100"> <Icon as={PhoneIcon}  w={5} h={5}/>
- </Box>
-        <Box w="100%" h="20" bg="blue.100">Contagem de monitores</Box>
-        <Box w="100%" h="20" bg="blue.100">Contagem de smarpthones</Box>
-        <Box w="100%" h="20" bg="blue.100">Contagem de notebooks</Box>
+      <Grid templateColumns="repeat(5, 1fr)" gap={2} p={3}>
+        <Box w="100%" h="20" bg="green.100">
+          <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
+          <Image src={warehouse_icon} w={16} h={16} />
+            <p>1230 Itens totais</p>
+          </Flex>
+        </Box>
+        <Box w="100%" h="20" bg="green.100">
+          <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
+            <Image src={notebook_icon}w={16} h={16}/>
+            <p>348 Notebooks</p>
+          </Flex>
+        </Box>
+        <Box w="100%" h="20" bg="green.100">
+          <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
+          <Image src={monitor_icon} w={16} h={16} />
+            <p>264 Monitores</p>
+          </Flex>
+        </Box>
+        <Box w="100%" h="20" bg="green.100">
+          <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
+          <Image src={smartphone_icon} w={16} h={16}/>
+            <p>167   Smartphones</p>
+          </Flex>
+        </Box>
+        <Box w="100%" h="20">
+          <Flex justifyContent="end" alignItems="center" marginTop="10px" p={3}>
+            <Image src={add_asset_icon} w={10} h={10} alt="Logo" marginEnd="20px" />
+            <Image src={transfer_icon} w={10} h={10} alt="Logo" />
+          </Flex>
+        </Box>
       </Grid>
       <Grid
         h="300px"
@@ -188,7 +218,7 @@ const Dashboard = () => {
         </GridItem>
         <GridItem colSpan={4} bg="lightgray">
           <Box boxSize="xl" borderRadius="md">
-            <Image src={logoImg} alt="Logo" />
+            <Image src={add_asset_icon} alt="Logo"  w={30} h={30} />
           </Box>
         </GridItem>
       </Grid>
