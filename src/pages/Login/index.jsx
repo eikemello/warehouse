@@ -70,7 +70,7 @@ const Login = () => {
 
             <Box py={2}>
               <FormControl id="email" isRequired >
-                <FormLabel>email:</FormLabel>
+                <FormLabel>email</FormLabel>
                 <Input
                   type="email"
                   autoComplete="false"
@@ -84,7 +84,7 @@ const Login = () => {
 
             <Box py={2}>
               <FormControl id="password" isRequired >
-                <FormLabel>password:</FormLabel>
+                <FormLabel>password</FormLabel>
                 <Input
                   type="password"
                   autoComplete="false"

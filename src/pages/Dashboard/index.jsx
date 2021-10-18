@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Box, Grid, Flex, Image, GridItem } from '@chakra-ui/react'
+import { Box, Grid, Image, GridItem } from '@chakra-ui/react'
 
 import Header from '../../components/Header'
 import Sidebar from '../../components/SideBar'
@@ -9,7 +9,8 @@ import { logStock, transfers } from '../../services/firebase'
 
 
 import logoImg from '../../assets/login_image.png'
-
+import { Icon } from "@chakra-ui/react"
+import { AddIcon, PhoneIcon } from '@chakra-ui/icons'
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true)
@@ -155,14 +156,21 @@ const Dashboard = () => {
           showSidebarButton={true}
         />
       </Box>
+      <Grid templateColumns="repeat(4, 1fr)" gap={2} p={3}>
+        <Box w="100%" h="20" bg="blue.100"> <Icon as={PhoneIcon}  w={5} h={5}/>
+ </Box>
+        <Box w="100%" h="20" bg="blue.100">Contagem de monitores</Box>
+        <Box w="100%" h="20" bg="blue.100">Contagem de smarpthones</Box>
+        <Box w="100%" h="20" bg="blue.100">Contagem de notebooks</Box>
+      </Grid>
       <Grid
         h="300px"
         templateRows="repeat(2, 1fr)"
         templateColumns="repeat(4, 1fr)"
-        gap={10}
+        gap={5}
         p={10}
       >
-        <GridItem colSpan={2} >
+        <GridItem colSpan={2}>
           <MUIDataTable
             title={"Releases"}
             data={data_test}
@@ -178,7 +186,7 @@ const Dashboard = () => {
             options={options}
           />
         </GridItem>
-        <GridItem colSpan={4} bg="tomato">
+        <GridItem colSpan={4} bg="lightgray">
           <Box boxSize="xl" borderRadius="md">
             <Image src={logoImg} alt="Logo" />
           </Box>
