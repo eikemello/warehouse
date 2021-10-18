@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Grid, GridItem, FormControl, Input} from "@chakra-ui/react"
 import Header from '../../components/Header'
@@ -7,7 +6,7 @@ import MUIDataTable from "mui-datatables"
 
 
 const Searchs = () => {
-    const [isSidebarOpen, setSidebarOpen] = useState(true)
+    const [isSidebarOpen, setSidebarOpen] = useState(false)
 
     const toggleSidebar = () => setSidebarOpen(!isSidebarOpen)
     const [dataFilter, setDataFilter] = useState('')

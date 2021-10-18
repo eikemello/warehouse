@@ -1,11 +1,27 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { Box, Grid, Image, Flex, GridItem } from '@chakra-ui/react'
+import {
+  Modal,
+  Button,
+  useDisclosure,
+  FormControl,
+  FormLabel,
+  Input,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react"
 
 import Header from '../../components/Header'
 import Sidebar from '../../components/SideBar'
+import FormRegisterEquipment from '../../components/ModalRegisterEquipment'
+import FormTransferEquipment from '../../components/ModalTransferEquipment'
 import MUIDataTable from "mui-datatables"
-import { logStock, transfers } from '../../services/firebase'
+import { getLogTransfers, getLogWarehouse } from '../../services/firebase'
 
 
 import notebook_icon from '../../assets/notebook_icon.png'
@@ -14,13 +30,15 @@ import smartphone_icon from '../../assets/smartphone_icon.png'
 import warehouse_icon from '../../assets/warehouse_icon.png'
 import add_asset_icon from '../../assets/add_asset_icon.png'
 import transfer_icon from '../../assets/transfer_icon.png'
-import logoImg from '../../assets/login_image.png'
 
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true)
-
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen)
+  
+  const { isOpenModalRegister, onOpenModalRegister, onCloseModalRegister } = useDisclosure()
+  const { isOpenModalTransfer, onOpenModalTransfer, onCloseModalTransfer } = useDisclosure()
+
 
   const columns = [
     {
@@ -142,8 +160,10 @@ const Dashboard = () => {
     { newResponsible: "nome7", "oldResponsible": "nome27", serialNumber: "serial7", status: "Fora do Estoque", transferDate: "2021-04-28_15:21:17", type: "Laptop" }, { newResponsible: "nome8", "oldResponsible": "nome28", serialNumber: "serial8", status: "Fora do Estoque", transferDate: "2021-04-28_16:50:01", type: "Nobreak" }, { newResponsible: "nome9", "oldResponsible": "nome29", serialNumber: "serial9", status: "Estoque Interno", transferDate: "2021-04-28_17:32:06", type: "Laptop" }, { newResponsible: "nome10", "oldResponsible": "nome30", serialNumber: "serial10", status: "Fora do Estoque", transferDate: "2021-05-03_12:01:43", type: "Laptop" }, { newResponsible: "nome11", "oldResponsible": "nome31", serialNumber: "serial11", status: "Estoque Interno", transferDate: "2021-05-03_12:27:02", type: "Laptop" }
   ];
 
-  const data_log = logStock
-  const data_transfer = transfers
+  const data_log = getLogWarehouse
+  const data_transfer = getLogTransfers
+
+
 
   const options = {
     filterType: 'checkbox',
@@ -162,34 +182,46 @@ const Dashboard = () => {
         />
       </Box>
       <Grid templateColumns="repeat(5, 1fr)" gap={2} p={3}>
-        <Box w="100%" h="20" bg="green.100">
+        <Box w="100%" h="20" bg="#b1c0cd">
           <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
             <Image src={warehouse_icon} w={16} h={16} />
             <p>1230 Itens totais</p>
           </Flex>
         </Box>
-        <Box w="100%" h="20" bg="green.100">
+        <Box w="100%" h="20" bg="#b1c0cd">
           <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
             <Image src={notebook_icon} w={16} h={16} />
             <p>348 Notebooks</p>
           </Flex>
         </Box>
-        <Box w="100%" h="20" bg="green.100">
+        <Box w="100%" h="20" bg="#b1c0cd">
           <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
             <Image src={monitor_icon} w={16} h={16} />
             <p>264 Monitores</p>
           </Flex>
         </Box>
-        <Box w="100%" h="20" bg="green.100">
+        <Box w="100%" h="20" bg="#b1c0cd">
           <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
             <Image src={smartphone_icon} w={16} h={16} />
             <p>167   Smartphones</p>
           </Flex>
         </Box>
         <Box w="100%" h="20">
-          <Flex justifyContent="end" alignItems="center" marginTop="10px" p={3}>
-            <Image src={add_asset_icon} w={10} h={10} alt="Logo" marginEnd="20px" />
-            <Image src={transfer_icon} w={10} h={10} alt="Logo" />
+          <Flex justifyContent="center" alignItems="center" marginTop="10px" p={3}>
+            <Button onClick={onOpenModalTransfer} bg="white" marginEnd="10px"><Image src={transfer_icon} w={10} h={10} alt="Logo" /></Button>
+
+            <Button onClick={onOpenModalRegister} bg="white" ><Image src={add_asset_icon} w={10} h={10} alt="Logo" /></Button>
+            <Modal
+              isOpenModalRegister={isOpenModalRegister}
+              onCloseModalRegister={onCloseModalRegister}
+            >
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>New asset</ModalHeader>
+                <ModalCloseButton />
+                <FormRegisterEquipment />
+              </ModalContent>
+            </Modal>
           </Flex>
         </Box>
       </Grid>
@@ -217,9 +249,13 @@ const Dashboard = () => {
           />
         </GridItem>
         <GridItem colSpan={4} bg="lightgray">
-          <Box boxSize="xl" borderRadius="md">
-            <Image src={add_asset_icon} alt="Logo" w={30} h={30} />
-          </Box>
+          <MUIDataTable
+            title={"Transfers"}
+            data={log_transfer}
+            columns={columns_log}
+            options={options}
+          />
+
         </GridItem>
       </Grid>
     </>

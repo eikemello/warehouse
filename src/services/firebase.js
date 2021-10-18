@@ -1,5 +1,4 @@
 import { initializeApp } from 'firebase/app'
-
 import { getDatabase, ref, onValue } from "firebase/database";
 
 const firebaseConfig = {
@@ -17,12 +16,10 @@ const database = getDatabase();
 
 const dbRefEquipaments = ref(database, '/Equipaments');
 const dbRefLogWarehouse = ref(database, '/Logs/Warehouse');
-export var logStock = []
-export var transfers = []
-export var equipaments = []
 
-const getEquipaments = () => {
-  equipaments = []
+
+export const getEquipments = () => {
+  var equipments = []
 
   try {
     onValue(dbRefEquipaments, (snapshot) => {
@@ -35,7 +32,7 @@ const getEquipaments = () => {
           data: childData
         }
 
-        equipaments.push(equipament)
+        equipments.push(equipament)
       });
     }, {
       onlyOnce: true
@@ -44,11 +41,12 @@ const getEquipaments = () => {
     console.log(err)
   }
 
-  console.log(equipaments)
+  console.log(equipments)
+  return equipments
 }
 
-const getLogWarehouse = () => {
-  logStock = []
+export const getLogWarehouse = () => {
+  var logStock = []
 
   try {
     onValue(dbRefLogWarehouse, (snapshot) => {
@@ -71,10 +69,11 @@ const getLogWarehouse = () => {
   }
 
   console.log(logStock)
+  return logStock
 }
 
-const getLogTransfers = () => {
-  transfers = []
+export const getLogTransfers = () => {
+  var transfers = []
 
   try {
     onValue(dbRefLogWarehouse, (snapshot) => {
@@ -96,6 +95,7 @@ const getLogTransfers = () => {
     console.log(err)
   }
   console.log(transfers)
+  return transfers
 }
 
 getLogWarehouse()

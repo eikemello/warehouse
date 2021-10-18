@@ -20,7 +20,7 @@ const SidebarContent = ({ onClick }) => (
       <Link to="/searchs">Searchs</Link>
     </Button>
     <Button w="100%">
-      <Link to="/all-assets">All assets</Link>
+      <Link to="/all-equipments">All assets</Link>
     </Button>
   </VStack>
 )

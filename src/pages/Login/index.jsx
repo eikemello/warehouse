@@ -50,12 +50,12 @@ const Login = () => {
 
 
   return (
-    <Grid templateColumns="repeat(2, 1fr)" gap={6} height="100vh" background="lightgray">
+    <Grid templateColumns="repeat(2, 1fr)" gap={6} p={10} height="100vh" background="white">
       <Flex justifyContent="center" alignItems="center">
         <Box
           w={[400, 500, 600]}
           border="1px"
-          borderColor="purple.200"
+          borderColor="#b1c0cd"
           borderRadius="md"
           padding={4}
           textAlign="left"
@@ -75,7 +75,7 @@ const Login = () => {
                   type="email"
                   autoComplete="false"
                   size="lg"
-                  borderColor="purple.200"
+                  borderColor="#b1c0cd"
                   onChange={event => setEmail(event.currentTarget.value)}
                   value={email}
                 />
@@ -89,7 +89,7 @@ const Login = () => {
                   type="password"
                   autoComplete="false"
                   size="lg"
-                  borderColor="purple.200"
+                  borderColor="#b1c0cd"
                   onChange={event => setPassword(event.currentTarget.value)}
                   value={password}
                 />
@@ -101,7 +101,7 @@ const Login = () => {
                 width="full"
                 mt={4}
                 type="submit"
-                colorScheme="purple"
+                bg="#b1c0cd"
                 size="lg"
                 disabled={isLoading}
               >
