@@ -11,18 +11,104 @@ const Searchs = () => {
     const toggleSidebar = () => setSidebarOpen(!isSidebarOpen)
     const [dataFilter, setDataFilter] = useState('')
 
-    const columns = [
+    const columns_especific = [
         {
-            name: "date",
-            label: "Date",
+            name: "responsible",
+            label: "Responsible",
             options: {
                 filter: true,
                 sort: false,
             }
         },
         {
+            name: "type",
+            label: "Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "model",
+            label: "Model",
+            options: {
+                filter: true,
+                sort: false,
+            }
+        },
+        {
+            name: "serialNumber",
+            label: "Serial Number",
+            options: {
+                filter: true,
+                sort: false,
+            }
+        },
+        {
+            name: "status",
+            label: "Status",
+            options: {
+                filter: true,
+                sort: false,
+            }
+        },
+    ];
+
+    const columns_list_by_name = [
+        {
+            name: "responsible",
+            label: "Responsible",
+            options: {
+                filter: true,
+                sort: false,
+            }
+        },
+        {
+            name: "type",
+            label: "Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "model",
+            label: "Model",
+            options: {
+                filter: true,
+                sort: false,
+            }
+        },
+        {
+            name: "serialNumber",
+            label: "Serial Number",
+            options: {
+                filter: true,
+                sort: false,
+            }
+        },
+        {
+            name: "status",
+            label: "Status",
+            options: {
+                filter: true,
+                sort: false,
+            }
+        },
+    ];
+
+    const columns_list_history_log = [
+        {
             name: "employee",
-            label: "Employee",
+            label: "Responsible",
+            options: {
+                filter: true,
+                sort: false,
+            }
+        },
+        {
+            name: "responsible",
+            label: "By",
             options: {
                 filter: true,
                 sort: true,
@@ -33,11 +119,20 @@ const Searchs = () => {
             label: "Type",
             options: {
                 filter: true,
+                sort: true,
+            }
+        },
+        
+        {
+            name: "model",
+            label: "Model",
+            options: {
+                filter: true,
                 sort: false,
             }
         },
         {
-            name: "serialnumber",
+            name: "serialNumber",
             label: "Serial Number",
             options: {
                 filter: true,
@@ -45,14 +140,101 @@ const Searchs = () => {
             }
         },
         {
-            name: "responsible",
-            label: "Release by",
+            name: "registerDate",
+            label: "Date",
             options: {
                 filter: true,
                 sort: false,
             }
         },
     ];
+
+    const columns_list_history_out = [
+        {
+            name: "responsible",
+            label: "Responsible",
+            options: {
+              filter: true,
+              sort: false,
+            }
+          },
+          {
+            name: "serialNumber",
+            label: "Serial Number",
+            options: {
+              filter: true,
+              sort: true,
+            }
+          },
+          {
+            name: "type",
+            label: "Type",
+            options: {
+              filter: true,
+              sort: false,
+            }
+          },
+          {
+            name: "date",
+            label: "Date",
+            options: {
+              filter: true,
+              sort: false,
+            }
+          },
+          {
+            name: "transferDate",
+            label: "Date",
+            options: {
+              filter: true,
+              sort: false,
+            }
+          },
+    ];
+
+    const columns_list_history_transfer = [
+        {
+            name: "newResponsible",
+            label: "To",
+            options: {
+              filter: true,
+              sort: false,
+            }
+          },
+          {
+            name: "oldResponsible",
+            label: "From",
+            options: {
+              filter: true,
+              sort: true,
+            }
+          },
+          {
+            name: "serialNumber",
+            label: "Type",
+            options: {
+              filter: true,
+              sort: false,
+            }
+          },
+          {
+            name: "transferDate",
+            label: "Transfer date",
+            options: {
+              filter: true,
+              sort: false,
+            }
+          },
+          {
+            name: "transferDate",
+            label: "Date",
+            options: {
+              filter: true,
+              sort: false,
+            }
+          },
+    ];
+
     const data_test = [
 
     ];
@@ -77,7 +259,7 @@ const Searchs = () => {
                 templateRows="repeat(2, 1fr)"
                 templateColumns="repeat(2, 1fr)"
                 gap={5}
-                p={10}
+                p={5}
             >
                 <GridItem colSpan={2}>
                     <Tabs>
@@ -102,11 +284,38 @@ const Searchs = () => {
                                         />
                                     </FormControl>
                                 </Box>
+                                <Grid
+                                    h="300px"
+                                    templateRows="repeat(1, 1fr)"
+                                    templateColumns="repeat(3, 1fr)"
+                                    gap={5}
+                                    
+                                >
+                                    <GridItem colSpan={1}>
                                 <MUIDataTable
+                                title={"Equipment out company"}
                                     data={data_test}
-                                    columns={columns}
+                                    columns={columns_list_history_out}
                                     options={options}
                                 />
+                                </GridItem>
+                                <GridItem colSpan={1}>
+                                <MUIDataTable
+                                title={"Equipment out warehouse"}
+                                    data={data_test}
+                                    columns={columns_list_history_log}
+                                    options={options}
+                                />
+                                </GridItem>
+                                <GridItem colSpan={1}>
+                                <MUIDataTable
+                                title={"Equipment transfers"}
+                                    data={data_test}
+                                    columns={columns_list_history_transfer}
+                                    options={options}
+                                />
+                                </GridItem>
+                                </Grid>
                             </TabPanel>
                             <TabPanel>
                             <Box py={2}>
@@ -124,7 +333,7 @@ const Searchs = () => {
                                 </Box>
                                 <MUIDataTable
                                     data={data_test}
-                                    columns={columns}
+                                    columns={columns_list_by_name}
                                     options={options}
                                 />
                             </TabPanel>
@@ -144,7 +353,7 @@ const Searchs = () => {
                                 </Box>
                                 <MUIDataTable
                                     data={data_test}
-                                    columns={columns}
+                                    columns={columns_especific}
                                     options={options}
                                 />
                             </TabPanel>

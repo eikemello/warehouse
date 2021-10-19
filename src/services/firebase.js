@@ -16,6 +16,7 @@ const database = getDatabase();
 
 const dbRefEquipaments = ref(database, '/Equipaments');
 const dbRefLogWarehouse = ref(database, '/Logs/Warehouse');
+const dbRefLogTransfers = ref(database, '/Logs/Transfers');
 
 
 export const getEquipments = () => {
@@ -28,8 +29,7 @@ export const getEquipments = () => {
         const childData = childSnapshot.val();
 
         const equipament = {
-          key: childKey,
-          data: childData
+          ...childData, childKey
         }
 
         equipments.push(equipament)
@@ -40,8 +40,6 @@ export const getEquipments = () => {
   } catch (err) {
     console.log(err)
   }
-
-  console.log(equipments)
   return equipments
 }
 
@@ -55,8 +53,7 @@ export const getLogWarehouse = () => {
         const childData = childSnapshot.val();
 
         const log = {
-          key: childKey,
-          data: childData, 
+          ...childData, childKey 
         }
 
         logStock.push(log)
@@ -68,25 +65,24 @@ export const getLogWarehouse = () => {
     console.log(err)
   }
 
-  console.log(logStock)
   return logStock
 }
 
 export const getLogTransfers = () => {
   var transfers = []
+  
 
   try {
-    onValue(dbRefLogWarehouse, (snapshot) => {
+    onValue(dbRefLogTransfers, (snapshot) => {
       snapshot.forEach((childSnapshot) => {
         const childKey = childSnapshot.key;
         const childData = childSnapshot.val();
 
         const transfer = {
-          key: childKey,
-          data: childData, 
+         ...childData, childKey
         }
 
-        transfer.push(transfer)
+        transfers.push(transfer)
       });
     }, {
       onlyOnce: true
@@ -97,7 +93,5 @@ export const getLogTransfers = () => {
   console.log(transfers)
   return transfers
 }
-
-getLogWarehouse()
 
 export default app;
