@@ -5,14 +5,9 @@ import {
   Modal,
   Button,
   useDisclosure,
-  FormControl,
-  FormLabel,
-  Input,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
-  ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react"
 
@@ -35,9 +30,9 @@ import transfer_icon from '../../assets/transfer_icon.png'
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true)
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen)
-  
-  const { isOpenModalRegister, onOpenModalRegister, onCloseModalRegister } = useDisclosure()
-  const { isOpenModalTransfer, onOpenModalTransfer, onCloseModalTransfer } = useDisclosure()
+
+  const { isOpen: isRegisterOpen , onOpen: onRegisterOpen, onClose: onRegisterClose } = useDisclosure()
+  const { isOpen: isTransferOpen , onOpen: onTransferOpen, onClose: onTransferClose } = useDisclosure()
 
 
   const columns = [
@@ -208,13 +203,17 @@ const Dashboard = () => {
         </Box>
         <Box w="100%" h="20">
           <Flex justifyContent="center" alignItems="center" marginTop="10px" p={3}>
-            <Button onClick={onOpenModalTransfer} bg="white" marginEnd="10px"><Image src={transfer_icon} w={10} h={10} alt="Logo" /></Button>
-
-            <Button onClick={onOpenModalRegister} bg="white" ><Image src={add_asset_icon} w={10} h={10} alt="Logo" /></Button>
-            <Modal
-              isOpenModalRegister={isOpenModalRegister}
-              onCloseModalRegister={onCloseModalRegister}
-            >
+            <Button onClick={onTransferOpen} bg="white" marginEnd="10px"><Image src={transfer_icon} w={10} h={10} alt="Logo" /></Button>
+            <Modal isOpen={isTransferOpen} onClose={onTransferClose} >
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Transfer</ModalHeader>
+                <ModalCloseButton />
+                <FormTransferEquipment />
+              </ModalContent>
+            </Modal>
+            <Button onClick={onRegisterOpen} bg="white" ><Image src={add_asset_icon} w={10} h={10} alt="Logo" /></Button>
+            <Modal isOpen={isRegisterOpen} onClose={onRegisterClose}>
               <ModalOverlay />
               <ModalContent>
                 <ModalHeader>New asset</ModalHeader>

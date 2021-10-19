@@ -1,27 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
-    Modal,
     Button,
     useDisclosure,
     FormControl,
     FormLabel,
     Input,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
     ModalFooter,
     ModalBody,
-    ModalCloseButton,
   } from "@chakra-ui/react"
-import { InputLabel } from '@material-ui/core'
 
 
 
 const FormTransfer = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { onClose } = useDisclosure()
 
     const initialRef = React.useRef()
-    const finalRef = React.useRef()
 
     return (
         <>
