@@ -30,7 +30,7 @@ const Routes = () => (
         <Route path='/' exact component={Login} />
         <PrivateRoute isPrivate path='/dashboard' component={Dashboard} />
         <PrivateRoute path='/searchs' component={Searchs} /> 
-        <PrivateRoute path='/all-equipments' component={Equipments} />
+        <PrivateRoute path='/all-equipaments' component={Equipments} />
         <Route path="*" component={() => <h1>Page not found</h1>} />
       </Switch>
     </Router>
