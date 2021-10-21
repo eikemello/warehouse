@@ -8,30 +8,24 @@ import {
   DrawerContent,
   VStack,
 } from '@chakra-ui/react'
-
-import history from '../../history'
+import { Link } from 'react-router-dom'
 
 
 const SidebarContent = ({ onClick }) => (
   <VStack>
-    <Button w="100%" onClick= {() => onClick("/dashboard")}>
-      Dashboard
-      {/* <Link to="/dashboard">Dashboard</Link> */}
+    <Button w="100%">
+      <Link to="/dashboard">Dashboard</Link>
     </Button>
-    <Button w="100%" onClick= {() => onClick("/searchs")}>
-      Searchs
+    <Button w="100%">
+      <Link to="/searchs">Searchs</Link>
     </Button>
-    <Button w="100%" onClick= {() => onClick("/all-equipaments")}>
-      All Equipaments
+    <Button w="100%">
+      <Link to="/all-equipments">All assets</Link>
     </Button>
   </VStack>
 )
 
 const Sidebar = ({ isOpen, onClose }) => {
-  const onSidebarClick = (route) => {
-    history.push(route)
-  }
-
   return (
     <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
       <DrawerOverlay>
@@ -39,7 +33,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           <DrawerCloseButton />
           <DrawerHeader>Menu</DrawerHeader>
           <DrawerBody>
-            <SidebarContent onClick={onSidebarClick} />
+            <SidebarContent onClick={onClose} />
           </DrawerBody>
         </DrawerContent>
       </DrawerOverlay>
