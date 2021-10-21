@@ -16,7 +16,7 @@ const database = getDatabase();
 
 const dbRefEquipaments = ref(database, '/Equipaments');
 const dbRefLogWarehouse = ref(database, '/Logs/Warehouse');
-const dbRefLogTransfers = ref(database, '/Logs/Transfers');
+const dbRefLogTransfers = ref(database, '/Logs/Transfers/');
 
 
 export const getEquipments = () => {
@@ -53,7 +53,7 @@ export const getLogWarehouse = () => {
         const childData = childSnapshot.val();
 
         const log = {
-          ...childData, childKey 
+          ...childData, childKey
         }
 
         logStock.push(log)
@@ -70,27 +70,29 @@ export const getLogWarehouse = () => {
 
 export const getLogTransfers = () => {
   var transfers = []
-  
-
+  var jsonData
   try {
     onValue(dbRefLogTransfers, (snapshot) => {
-      snapshot.forEach((childSnapshot) => {
-        const childKey = childSnapshot.key;
-        const childData = childSnapshot.val();
 
-        const transfer = {
-         ...childData, childKey
-        }
-
-        transfers.push(transfer)
+      snapshot.forEach(function (data) {
+        let userName = data.val().username;
+        var childData = snapshot.val();
+        jsonData = JSON.stringify(childData[data.key]);
+        transfers.push(jsonData)
       });
-    }, {
-      onlyOnce: true
+
+      //transfers.push(childData);
+     // var childData = snapshot.val();
+    //  let test = childData['2021-05-13_10:02:35']
+     // console.log(JSON.stringify(childData['Transfer']))
+
+      //console.log("childData key > " + childData)
+
+      //console.log("obj new > "+obj)
     });
   } catch (err) {
     console.log(err)
   }
-  console.log(transfers)
   return transfers
 }
 

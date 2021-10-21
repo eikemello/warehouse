@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, componentDidMount, useEffect } from 'react'
 
 import { Box, Grid, Image, Flex, GridItem } from '@chakra-ui/react'
 import {
@@ -17,6 +17,7 @@ import Header from '../../components/Header'
 import Sidebar from '../../components/SideBar'
 import FormRegisterEquipment from '../../components/ModalRegisterEquipment'
 import FormTransferEquipment from '../../components/ModalTransferEquipment'
+import Graph from '../../components/Graph'
 import MUIDataTable from "mui-datatables"
 import { createTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
@@ -31,13 +32,25 @@ import add_asset_icon from '../../assets/add_asset_icon.png'
 import transfer_icon from '../../assets/transfer_icon.png'
 
 
+
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false)
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen)
 
-  const { isOpen: isRegisterOpen , onOpen: onRegisterOpen, onClose: onRegisterClose } = useDisclosure()
-  const { isOpen: isTransferOpen , onOpen: onTransferOpen, onClose: onTransferClose } = useDisclosure()
+  const { isOpen: isRegisterOpen, onOpen: onRegisterOpen, onClose: onRegisterClose } = useDisclosure()
+  const { isOpen: isTransferOpen, onOpen: onTransferOpen, onClose: onTransferClose } = useDisclosure()
 
+  const [data, setData] = useState()
+  const [data2, setData2] = useState()
+
+  const data_transfer = getLogTransfers()
+  const as2 = []
+
+  useEffect(() => {
+    setData(data_transfer);
+    as2.push(data_transfer)
+    setData2(as2);
+  }, { data_transfer })
 
   const columns_log_warehouse = [
     {
@@ -84,16 +97,16 @@ const Dashboard = () => {
 
   const columns_transfer = [
     {
-      name: "oldResponsible",
-      label: "From",
+      name: "newResponsible",
+      label: "To",
       options: {
         filter: true,
-        sort: false   
+        sort: false
       }
     },
     {
-      name: "newResponsible",
-      label: "To",
+      name: "oldResponsible",
+      label: "From",
       options: {
         filter: true,
         sort: true,
@@ -116,15 +129,22 @@ const Dashboard = () => {
       }
     },
     {
-      name: "childKey",
+      name: "transferDate",
       label: "Date",
       options: {
         filter: true,
         sort: false,
       }
     },
+    {
+      name: "status",
+      label: "status",
+      options: {
+        filter: true,
+        sort: false,
+      }
+    }
   ];
-
 
   const data_test = [
     { childKey: "17/10/2021", employee: "Joe James", type: "Test Corp", serialNumber: "Yonkers", responsible: "NY" },
@@ -152,14 +172,14 @@ const Dashboard = () => {
   ];
 
   const log_transfer = [
-    { newResponsible: "nome1", oldResponsible: "nome15", serialNumber: "serial1", status: "Fora do Estoque", transferDate: "2021-04-14_14:52:25", type: "Laptop" }, 
-    { newResponsible: "nome1", "oldResponsible": "nome16", serialNumber: "serial1", status: "Fora do Estoque", transferDate: "2021-04-15_11:35:54", type: "Laptop" }, 
-    { newResponsible: "nome2", "oldResponsible": "nome17", serialNumber: "serial2", status: "Fora do Estoque", transferDate: "2021-04-16_14:19:46", type: "Laptop" }, 
-    { newResponsible: "nome2", "oldResponsible": "nome18", serialNumber: "serial2", status: "Fora do Estoque", transferDate: "2021-04-19_17:16:14", type: "Laptop" }, 
-    { newResponsible: "nome2", "oldResponsible": "nome19", serialNumber: "serial2", status: "Fora do Estoque", transferDate: "2021-04-20_15:13:56", type: "Laptop" }, 
-    { newResponsible: "nome3", "oldResponsible": "nome20", serialNumber: "serial3", status: "Estoque Interno", transferDate: "2021-04-22_15:52:46", type: "Monitor" }, 
-    { newResponsible: "nome4", "oldResponsible": "nome21", serialNumber: "serial4", status: "Fora do estoque", transferDate: "2021-04-22_15:53:08", type: "Teclado" }, 
-    { newResponsible: "nome4", "oldResponsible": "nome22", serialNumber: "serial4", status: "Fora do Estoque", transferDate: "2021-04-22_18:21:28", type: "Teclado" }, 
+    { newResponsible: "nome1", oldResponsible: "nome15", serialNumber: "serial1", status: "Fora do Estoque", transferDate: "2021-04-14_14:52:25", type: "Laptop" },
+    { newResponsible: "nome1", "oldResponsible": "nome16", serialNumber: "serial1", status: "Fora do Estoque", transferDate: "2021-04-15_11:35:54", type: "Laptop" },
+    { newResponsible: "nome2", "oldResponsible": "nome17", serialNumber: "serial2", status: "Fora do Estoque", transferDate: "2021-04-16_14:19:46", type: "Laptop" },
+    { newResponsible: "nome2", "oldResponsible": "nome18", serialNumber: "serial2", status: "Fora do Estoque", transferDate: "2021-04-19_17:16:14", type: "Laptop" },
+    { newResponsible: "nome2", "oldResponsible": "nome19", serialNumber: "serial2", status: "Fora do Estoque", transferDate: "2021-04-20_15:13:56", type: "Laptop" },
+    { newResponsible: "nome3", "oldResponsible": "nome20", serialNumber: "serial3", status: "Estoque Interno", transferDate: "2021-04-22_15:52:46", type: "Monitor" },
+    { newResponsible: "nome4", "oldResponsible": "nome21", serialNumber: "serial4", status: "Fora do estoque", transferDate: "2021-04-22_15:53:08", type: "Teclado" },
+    { newResponsible: "nome4", "oldResponsible": "nome22", serialNumber: "serial4", status: "Fora do Estoque", transferDate: "2021-04-22_18:21:28", type: "Teclado" },
     { newResponsible: "nome5", "oldResponsible": "nome23", serialNumber: "serial5", status: "Estoque Interno", transferDate: "2021-04-23_16:12:48", type: "Barcode Collector" },
     { newResponsible: "nome5", "oldResponsible": "nome24", serialNumber: "serial5", status: "Fora do Estoque", transferDate: "2021-04-27_11:36:01", type: "Barcode Collector" },
     { newResponsible: "nome5", "oldResponsible": "nome25", serialNumber: "serial5", status: "Estoque Interno", transferDate: "2021-04-27_17:28:59", type: "Bar Code Colector" },
@@ -168,16 +188,11 @@ const Dashboard = () => {
   ];
 
   const data_log = getLogWarehouse()
-  const data_transfer = getLogTransfers()
-  data_transfer.map(item => {
-    return [
-        console.log(item.serialNumber)
-    ]
-})
+
 
   const options = {
     filterType: 'checkbox',
-    rowsPerPage:[5],
+    rowsPerPage: [5],
     jumpToPage: true
   };
 
@@ -258,26 +273,15 @@ const Dashboard = () => {
           />
         </GridItem>
         <GridItem colSpan={2}>
-        
           <MUIDataTable
             title={"Transfers"}
-            data={data_transfer.map(item => {
-              return [
-                  item
-              ]
-          })}
+            data={data2}
             columns={columns_transfer}
             options={options}
           />
         </GridItem>
-        <GridItem colSpan={4} bg="lightgray">
-          <MUIDataTable
-            title={"dasdasdsadsadsadasd"}
-            data={log_transfer}
-            columns={columns_transfer}
-            options={options}
-          />
-
+        <GridItem colSpan={2} justifyContent="center" alignItems="center" mt="10px">
+          <Graph />
         </GridItem>
       </Grid>
     </>
