@@ -1,4 +1,4 @@
-import React, { useState, componentDidMount, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Box, Grid, Image, Flex, GridItem } from '@chakra-ui/react'
 import {
@@ -9,8 +9,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalCloseButton,
-  FormControlLabel,
-  TextField
 } from "@chakra-ui/react"
 
 import Header from '../../components/Header'
@@ -19,7 +17,6 @@ import FormRegisterEquipment from '../../components/ModalRegisterEquipment'
 import FormTransferEquipment from '../../components/ModalTransferEquipment'
 import Graph from '../../components/Graph'
 import MUIDataTable from "mui-datatables"
-import { createTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
 import { getLogTransfers, getLogWarehouse } from '../../services/firebase'
 
@@ -41,16 +38,27 @@ const Dashboard = () => {
   const { isOpen: isTransferOpen, onOpen: onTransferOpen, onClose: onTransferClose } = useDisclosure()
 
   const [data, setData] = useState()
-  const [data2, setData2] = useState()
 
   const data_transfer = getLogTransfers()
-  const as2 = []
-
+  console.log("INICIO DASHBOARD > " + new Date().toLocaleString())
   useEffect(() => {
+    console.log("INICIO useEffect > " + new Date().toLocaleString())
+
     setData(data_transfer);
-    as2.push(data_transfer)
-    setData2(as2);
-  }, { data_transfer })
+    console.log("DEPOIS DO setDAta > " + new Date().toLocaleString())
+  }, [data_transfer]);
+  console.log("print data > " + data)
+  console.log("print data > " + new Date().toLocaleString())
+
+  function person1Arrival() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('Person A has arrived!')
+      }, 1000)
+    })
+  }
+
+  person1Arrival();
 
   const columns_log_warehouse = [
     {
@@ -189,10 +197,13 @@ const Dashboard = () => {
 
   const data_log = getLogWarehouse()
 
+  // {data.forEach((item) => { return item })}
+
+  // {data_test.forEach((item) => { console.log("foreach") console.log(item)})}  dsa
 
   const options = {
     filterType: 'checkbox',
-    rowsPerPage: [5],
+    rowsPerPage: 5,
     jumpToPage: true
   };
 
@@ -275,7 +286,7 @@ const Dashboard = () => {
         <GridItem colSpan={2}>
           <MUIDataTable
             title={"Transfers"}
-            data={data2}
+            data={log_transfer}
             columns={columns_transfer}
             options={options}
           />

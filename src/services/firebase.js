@@ -70,8 +70,22 @@ export const getLogWarehouse = () => {
 
 export const getLogTransfers = () => {
   var transfers = []
-  var jsonData
-  try {
+
+
+  onValue(dbRefLogTransfers, (snapshot) => {
+    const data = snapshot.val();
+    Object.keys(data).forEach(function (key) {
+        // console.log("Obj key =>", key);
+        // console.log("Obj data => ", data[key]);
+        transfers.push(data[key]);
+    });
+    console.log("CONSOLE LOG antes de dar o RETURN " + new Date().toLocaleString(), Object.keys(transfers).length);
+    return transfers 
+    
+});
+console.log("CONSOLE LOG depois de terminar onValue " + new Date().toLocaleString(), Object.keys(transfers).length);
+
+  /*try {
     onValue(dbRefLogTransfers, (snapshot) => {
 
       snapshot.forEach(function (data) {
@@ -80,20 +94,10 @@ export const getLogTransfers = () => {
         jsonData = JSON.stringify(childData[data.key]);
         transfers.push(jsonData)
       });
-
-      //transfers.push(childData);
-     // var childData = snapshot.val();
-    //  let test = childData['2021-05-13_10:02:35']
-     // console.log(JSON.stringify(childData['Transfer']))
-
-      //console.log("childData key > " + childData)
-
-      //console.log("obj new > "+obj)
     });
   } catch (err) {
     console.log(err)
-  }
-  return transfers
+  }*/
 }
 
 export default app;
