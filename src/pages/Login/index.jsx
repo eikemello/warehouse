@@ -18,6 +18,7 @@ import { useAuth } from '../../hooks/useAuth'
 import ErrorMessage from '../../components/ErrorMessage'
 
 import logoImg from '../../assets/login_image.png'
+import { getLogTransfers, getLogWarehouse, getEquipments } from '../../services/firebase'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -37,6 +38,9 @@ const Login = () => {
       await logIn(email, password)
 
       setIsAuthenticated(true)
+      getLogTransfers()
+      getLogWarehouse()
+      getEquipments()
       history.push('/dashboard')
     } catch (error) {
       setIsAuthenticated(false)

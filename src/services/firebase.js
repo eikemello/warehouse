@@ -16,88 +16,74 @@ const database = getDatabase();
 
 const dbRefEquipaments = ref(database, '/Equipaments');
 const dbRefLogWarehouse = ref(database, '/Logs/Warehouse');
-const dbRefLogTransfers = ref(database, '/Logs/Transfers/');
+export const dbRefLogTransfers = ref(database, '/Logs/Transfers');
+export var transfersFromClass = []
+export var releaseFromClass = []
+export var equipmentFromClass = []
+
 
 
 export const getEquipments = () => {
-  var equipments = []
-
   try {
     onValue(dbRefEquipaments, (snapshot) => {
-      snapshot.forEach((childSnapshot) => {
-        const childKey = childSnapshot.key;
-        const childData = childSnapshot.val();
-
+      const data = snapshot.val();
+      Object.keys(data).forEach(function (key) {
         const equipament = {
-          ...childData, childKey
+          ...data[key], key
         }
-
-        equipments.push(equipament)
+        equipmentFromClass.push(equipament);
+        console.log(data[key])
       });
+      setTimeout(function () {
+        return equipmentFromClass
+
+      }, 5000);
+
     }, {
       onlyOnce: true
     });
   } catch (err) {
     console.log(err)
   }
-  return equipments
 }
 
 export const getLogWarehouse = () => {
-  var logStock = []
+  releaseFromClass = [];
 
   try {
     onValue(dbRefLogWarehouse, (snapshot) => {
-      snapshot.forEach((childSnapshot) => {
-        const childKey = childSnapshot.key;
-        const childData = childSnapshot.val();
-
-        const log = {
-          ...childData, childKey
+      const data = snapshot.val();
+      Object.keys(data).forEach(function (key) {
+        const equipament = {
+          ...data[key], key
         }
-
-        logStock.push(log)
+        releaseFromClass.push(equipament);
       });
+      setTimeout(function () {
+        return releaseFromClass
+      }, 5000);
+
     }, {
       onlyOnce: true
     });
   } catch (err) {
     console.log(err)
   }
-
-  return logStock
 }
 
 export const getLogTransfers = () => {
-  var transfers = []
-
-
-  onValue(dbRefLogTransfers, (snapshot) => {
-    const data = snapshot.val();
-    Object.keys(data).forEach(function (key) {
-        // console.log("Obj key =>", key);
-        // console.log("Obj data => ", data[key]);
-        transfers.push(data[key]);
-    });
-    console.log("CONSOLE LOG antes de dar o RETURN " + new Date().toLocaleString(), Object.keys(transfers).length);
-    return transfers 
-    
-});
-console.log("CONSOLE LOG depois de terminar onValue " + new Date().toLocaleString(), Object.keys(transfers).length);
-
-  /*try {
+  transfersFromClass = []
+  try {
     onValue(dbRefLogTransfers, (snapshot) => {
-
-      snapshot.forEach(function (data) {
-        let userName = data.val().username;
-        var childData = snapshot.val();
-        jsonData = JSON.stringify(childData[data.key]);
-        transfers.push(jsonData)
+      const data = snapshot.val();
+      Object.keys(data).forEach(function (key) {
+        transfersFromClass.push(data[key]);
       });
+      return transfersFromClass
     });
   } catch (err) {
     console.log(err)
-  }*/
+  }
 }
 
 export default app;

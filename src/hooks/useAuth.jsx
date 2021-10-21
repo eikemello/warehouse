@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   const logIn = (email, password) => {
     const auth = getAuth()
 
-    return signInWithEmailAndPassword(auth, email, password)
+    return signInWithEmailAndPassword(auth, email, password) 
     // .then((userCredentials) => {
     //   //signed in
     //   // console.log(userCredentials)

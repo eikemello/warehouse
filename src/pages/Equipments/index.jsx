@@ -4,27 +4,24 @@ import Header from '../../components/Header'
 import Sidebar from '../../components/SideBar'
 import MUIDataTable from "mui-datatables"
 
-import { getEquipments } from '../../services/firebase'
-var data_equipments = getEquipments
+import { equipmentFromClass } from '../../services/firebase'
 
 
 const Equipments = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false)
+    let [dataEquip, setDataEquip] = useState()
+
+    setTimeout(function () {
+        setDataEquip(equipmentFromClass)
+    }, 3000);
+
 
     const toggleSidebar = () => setSidebarOpen(!isSidebarOpen)
 
     const columns = [
         {
-            name: "date",
-            label: "Date",
-            options: {
-                filter: true,
-                sort: false,
-            }
-        },
-        {
-            name: "employee",
-            label: "Employee",
+            name: "responsible",
+            label: "Responsible",
             options: {
                 filter: true,
                 sort: true,
@@ -35,54 +32,48 @@ const Equipments = () => {
             label: "Type",
             options: {
                 filter: true,
-                sort: false,
+                sort: true,
             }
         },
         {
-            name: "serialnumber",
+            name: "serialNumber",
             label: "Serial Number",
             options: {
                 filter: true,
-                sort: false,
+                sort: true,
             }
         },
         {
-            name: "responsible",
-            label: "Release by",
+            name: "model",
+            label: "Model",
             options: {
                 filter: true,
-                sort: false,
+                sort: true,
+            }
+        },
+        {
+            name: "authorize",
+            label: "Authorize",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "status",
+            label: "Status",
+            options: {
+                filter: true,
+                sort: true,
             }
         },
     ];
 
-    const data_test = [
-        { date: "17/10/2021", employee: "Joe James", type: "Test Corp", serialnumber: "Yonkers", responsible: "NY" },
-        { date: "17/10/2021", employee: "John Walsh", type: "Test Corp", serialnumber: "Hartford", responsible: "CT" },
-        { date: "17/10/2021", employee: "Bob Herm", type: "Test Corp", serialnumber: "Tampa", responsible: "FL" },
-        { date: "17/10/2021", employee: "Joe James", type: "Test Corp", serialnumber: "Yonkers", responsible: "NY" },
-        { date: "17/10/2021", employee: "John Walsh", type: "Test Corp", serialnumber: "Hartford", responsible: "CT" },
-        { date: "17/10/2021", employee: "Bob Herm", type: "Test Corp", serialnumber: "Tampa", responsible: "FL" },
-        { date: "17/10/2021", employee: "Joe James", type: "Test Corp", serialnumber: "Yonkers", responsible: "NY" },
-        { date: "17/10/2021", employee: "John Walsh", type: "Test Corp", serialnumber: "Hartford", responsible: "CT" },
-        { date: "17/10/2021", employee: "Bob Herm", type: "Test Corp", serialnumber: "Tampa", responsible: "FL" },
-        { date: "17/10/2021", employee: "Joe James", type: "Test Corp", serialnumber: "Yonkers", responsible: "NY" },
-        { date: "17/10/2021", employee: "John Walsh", type: "Test Corp", serialnumber: "Hartford", responsible: "CT" },
-        { date: "17/10/2021", employee: "Bob Herm", type: "Test Corp", serialnumber: "Tampa", responsible: "FL" },
-        { date: "17/10/2021", employee: "Joe James", type: "Test Corp", serialnumber: "Yonkers", responsible: "NY" },
-        { date: "17/10/2021", employee: "John Walsh", type: "Test Corp", serialnumber: "Hartford", responsible: "CT" },
-        { date: "17/10/2021", employee: "Bob Herm", type: "Test Corp", serialnumber: "Tampa", responsible: "FL" },
-        { date: "17/10/2021", employee: "Joe James", type: "Test Corp", serialnumber: "Yonkers", responsible: "NY" },
-        { date: "17/10/2021", employee: "John Walsh", type: "Test Corp", serialnumber: "Hartford", responsible: "CT" },
-        { date: "17/10/2021", employee: "Bob Herm", type: "Test Corp", serialnumber: "Tampa", responsible: "FL" },
-        { date: "17/10/2021", employee: "Joe James", type: "Test Corp", serialnumber: "Yonkers", responsible: "NY" },
-        { date: "17/10/2021", employee: "John Walsh", type: "Test Corp", serialnumber: "Hartford", responsible: "CT" },
-        { date: "17/10/2021", employee: "Bob Herm", type: "Test Corp", serialnumber: "Tampa", responsible: "FL" },
-        { date: "17/10/2021", employee: "James Houston", type: "Test Corp", serialnumber: "Dallas", responsible: "TX" },
-    ];
-
     const options = {
-        filterType: 'checkbox',
+        filter: true,
+        jumpToPage: false,
+        filterType: 'dropdown',
+        responsive: 'standard',
     };
 
     return (
@@ -107,7 +98,7 @@ const Equipments = () => {
                 <GridItem colSpan={2}>
                     <MUIDataTable
                         title={"Assets"}
-                        data={data_test}
+                        data={dataEquip}
                         columns={columns}
                         options={options}
                     />

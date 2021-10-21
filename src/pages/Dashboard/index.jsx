@@ -18,7 +18,7 @@ import FormTransferEquipment from '../../components/ModalTransferEquipment'
 import Graph from '../../components/Graph'
 import MUIDataTable from "mui-datatables"
 
-import { getLogTransfers, getLogWarehouse } from '../../services/firebase'
+import { releaseFromClass, transfersFromClass } from '../../services/firebase'
 
 
 import notebook_icon from '../../assets/notebook_icon.png'
@@ -27,8 +27,7 @@ import smartphone_icon from '../../assets/smartphone_icon.png'
 import warehouse_icon from '../../assets/warehouse_icon.png'
 import add_asset_icon from '../../assets/add_asset_icon.png'
 import transfer_icon from '../../assets/transfer_icon.png'
-
-
+import { MuiThemeProvider, createTheme  } from "@material-ui/core/styles";
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false)
@@ -37,36 +36,31 @@ const Dashboard = () => {
   const { isOpen: isRegisterOpen, onOpen: onRegisterOpen, onClose: onRegisterClose } = useDisclosure()
   const { isOpen: isTransferOpen, onOpen: onTransferOpen, onClose: onTransferClose } = useDisclosure()
 
-  const [data, setData] = useState()
 
-  const data_transfer = getLogTransfers()
-  console.log("INICIO DASHBOARD > " + new Date().toLocaleString())
-  useEffect(() => {
-    console.log("INICIO useEffect > " + new Date().toLocaleString())
+  let [dataLog, setDataLog] = useState()
+  let [dataRelease, setDataRelease] = useState()
 
-    setData(data_transfer);
-    console.log("DEPOIS DO setDAta > " + new Date().toLocaleString())
-  }, [data_transfer]);
-  console.log("print data > " + data)
-  console.log("print data > " + new Date().toLocaleString())
+  let log_transfer2 = [];
 
-  function person1Arrival() {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('Person A has arrived!')
-      }, 1000)
-    })
-  }
 
-  person1Arrival();
+  setTimeout(function () {
+    log_transfer2 = transfersFromClass;
+    setDataLog(log_transfer2)
+    setDataRelease(releaseFromClass)
+  }, 3000);
 
-  const columns_log_warehouse = [
+  /* useEffect(() => {
+    setDataLog(log_transfer2)
+    setDataRelease(releaseFromClass)
+   }, [log_transfer2]);*/
+
+  const columns_releases = [
     {
-      name: "childKey",
+      name: "key",
       label: "Date",
       options: {
         filter: true,
-        sort: false,
+        sort: true,
       }
     },
     {
@@ -82,7 +76,7 @@ const Dashboard = () => {
       label: "Type",
       options: {
         filter: true,
-        sort: false,
+        sort: true,
       }
     },
     {
@@ -90,7 +84,7 @@ const Dashboard = () => {
       label: "Serial Number",
       options: {
         filter: true,
-        sort: false,
+        sort: true,
       }
     },
     {
@@ -98,7 +92,7 @@ const Dashboard = () => {
       label: "Release by",
       options: {
         filter: true,
-        sort: false,
+        sort: true,
       }
     },
   ];
@@ -109,7 +103,7 @@ const Dashboard = () => {
       label: "To",
       options: {
         filter: true,
-        sort: false
+        sort: true
       }
     },
     {
@@ -125,7 +119,7 @@ const Dashboard = () => {
       label: "Serial Number",
       options: {
         filter: true,
-        sort: false,
+        sort: true,
       }
     },
     {
@@ -133,7 +127,7 @@ const Dashboard = () => {
       label: "Type",
       options: {
         filter: true,
-        sort: false,
+        sort: true,
       }
     },
     {
@@ -141,73 +135,24 @@ const Dashboard = () => {
       label: "Date",
       options: {
         filter: true,
-        sort: false,
-      }
-    },
-    {
-      name: "status",
-      label: "status",
-      options: {
-        filter: true,
-        sort: false,
+        sort: true,
       }
     }
   ];
 
-  const data_test = [
-    { childKey: "17/10/2021", employee: "Joe James", type: "Test Corp", serialNumber: "Yonkers", responsible: "NY" },
-    { childKey: "17/10/2021", employee: "John Walsh", type: "Test Corp", serialNumber: "Hartford", responsible: "CT" },
-    { childKey: "17/10/2021", employee: "Bob Herm", type: "Test Corp", serialNumber: "Tampa", responsible: "FL" },
-    { childKey: "17/10/2021", employee: "Joe James", type: "Test Corp", serialNumber: "Yonkers", responsible: "NY" },
-    { childKey: "17/10/2021", employee: "John Walsh", type: "Test Corp", serialNumber: "Hartford", responsible: "CT" },
-    { childKey: "17/10/2021", employee: "Bob Herm", type: "Test Corp", serialNumber: "Tampa", responsible: "FL" },
-    { childKey: "17/10/2021", employee: "Joe James", type: "Test Corp", serialNumber: "Yonkers", responsible: "NY" },
-    { childKey: "17/10/2021", employee: "John Walsh", type: "Test Corp", serialNumber: "Hartford", responsible: "CT" },
-    { childKey: "17/10/2021", employee: "Bob Herm", type: "Test Corp", serialNumber: "Tampa", responsible: "FL" },
-    { childKey: "17/10/2021", employee: "Joe James", type: "Test Corp", serialNumber: "Yonkers", responsible: "NY" },
-    { childKey: "17/10/2021", employee: "John Walsh", type: "Test Corp", serialNumber: "Hartford", responsible: "CT" },
-    { childKey: "17/10/2021", employee: "Bob Herm", type: "Test Corp", serialNumber: "Tampa", responsible: "FL" },
-    { childKey: "17/10/2021", employee: "Joe James", type: "Test Corp", serialNumber: "Yonkers", responsible: "NY" },
-    { childKey: "17/10/2021", employee: "John Walsh", type: "Test Corp", serialNumber: "Hartford", responsible: "CT" },
-    { childKey: "17/10/2021", employee: "Bob Herm", type: "Test Corp", serialNumber: "Tampa", responsible: "FL" },
-    { childKey: "17/10/2021", employee: "Joe James", type: "Test Corp", serialNumber: "Yonkers", responsible: "NY" },
-    { childKey: "17/10/2021", employee: "John Walsh", type: "Test Corp", serialnumber: "Hartford", responsible: "CT" },
-    { childKey: "17/10/2021", employee: "Bob Herm", type: "Test Corp", serialnumber: "Tampa", responsible: "FL" },
-    { childKey: "17/10/2021", employee: "Joe James", type: "Test Corp", serialnumber: "Yonkers", responsible: "NY" },
-    { childKey: "17/10/2021", employee: "John Walsh", type: "Test Corp", serialnumber: "Hartford", responsible: "CT" },
-    { childKey: "17/10/2021", employee: "Bob Herm", type: "Test Corp", serialnumber: "Tampa", responsible: "FL" },
-    { childKey: "17/10/2021", employee: "James Houston", type: "Test Corp", serialnumber: "Dallas", responsible: "TX" },
-  ];
-
-  const log_transfer = [
-    { newResponsible: "nome1", oldResponsible: "nome15", serialNumber: "serial1", status: "Fora do Estoque", transferDate: "2021-04-14_14:52:25", type: "Laptop" },
-    { newResponsible: "nome1", "oldResponsible": "nome16", serialNumber: "serial1", status: "Fora do Estoque", transferDate: "2021-04-15_11:35:54", type: "Laptop" },
-    { newResponsible: "nome2", "oldResponsible": "nome17", serialNumber: "serial2", status: "Fora do Estoque", transferDate: "2021-04-16_14:19:46", type: "Laptop" },
-    { newResponsible: "nome2", "oldResponsible": "nome18", serialNumber: "serial2", status: "Fora do Estoque", transferDate: "2021-04-19_17:16:14", type: "Laptop" },
-    { newResponsible: "nome2", "oldResponsible": "nome19", serialNumber: "serial2", status: "Fora do Estoque", transferDate: "2021-04-20_15:13:56", type: "Laptop" },
-    { newResponsible: "nome3", "oldResponsible": "nome20", serialNumber: "serial3", status: "Estoque Interno", transferDate: "2021-04-22_15:52:46", type: "Monitor" },
-    { newResponsible: "nome4", "oldResponsible": "nome21", serialNumber: "serial4", status: "Fora do estoque", transferDate: "2021-04-22_15:53:08", type: "Teclado" },
-    { newResponsible: "nome4", "oldResponsible": "nome22", serialNumber: "serial4", status: "Fora do Estoque", transferDate: "2021-04-22_18:21:28", type: "Teclado" },
-    { newResponsible: "nome5", "oldResponsible": "nome23", serialNumber: "serial5", status: "Estoque Interno", transferDate: "2021-04-23_16:12:48", type: "Barcode Collector" },
-    { newResponsible: "nome5", "oldResponsible": "nome24", serialNumber: "serial5", status: "Fora do Estoque", transferDate: "2021-04-27_11:36:01", type: "Barcode Collector" },
-    { newResponsible: "nome5", "oldResponsible": "nome25", serialNumber: "serial5", status: "Estoque Interno", transferDate: "2021-04-27_17:28:59", type: "Bar Code Colector" },
-    { newResponsible: "nome6", "oldResponsible": "nome26", serialNumber: "serial6", status: "Fora do Estoque", transferDate: "2021-04-28_11:38:48", type: "Carregador laptop" },
-    { newResponsible: "nome7", "oldResponsible": "nome27", serialNumber: "serial7", status: "Fora do Estoque", transferDate: "2021-04-28_15:21:17", type: "Laptop" }, { newResponsible: "nome8", "oldResponsible": "nome28", serialNumber: "serial8", status: "Fora do Estoque", transferDate: "2021-04-28_16:50:01", type: "Nobreak" }, { newResponsible: "nome9", "oldResponsible": "nome29", serialNumber: "serial9", status: "Estoque Interno", transferDate: "2021-04-28_17:32:06", type: "Laptop" }, { newResponsible: "nome10", "oldResponsible": "nome30", serialNumber: "serial10", status: "Fora do Estoque", transferDate: "2021-05-03_12:01:43", type: "Laptop" }, { newResponsible: "nome11", "oldResponsible": "nome31", serialNumber: "serial11", status: "Estoque Interno", transferDate: "2021-05-03_12:27:02", type: "Laptop" }
-  ];
-
-  const data_log = getLogWarehouse()
-
   // {data.forEach((item) => { return item })}
-
+  // {releaseFromClass.forEach((item) => {    console.log(item) ;})}
   // {data_test.forEach((item) => { console.log("foreach") console.log(item)})}  dsa
 
   const options = {
-    filterType: 'checkbox',
     rowsPerPage: 5,
-    jumpToPage: true
+    jumpToPage: false,
+    filter: true,
+    filterType: 'dropdown',
+    responsive: 'standard',
   };
 
-
+  
   return (
     <>
       <Sidebar
@@ -276,17 +221,19 @@ const Dashboard = () => {
         p={10}
       >
         <GridItem colSpan={2}>
+          <MuiThemeProvider>
           <MUIDataTable
             title={"Releases"}
-            data={data_test}
-            columns={columns_log_warehouse}
+            data={dataRelease}
+            columns={columns_releases}
             options={options}
           />
+          </MuiThemeProvider>
         </GridItem>
         <GridItem colSpan={2}>
           <MUIDataTable
             title={"Transfers"}
-            data={log_transfer}
+            data={dataLog}
             columns={columns_transfer}
             options={options}
           />
