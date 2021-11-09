@@ -251,14 +251,7 @@ const Dashboard = () => {
           <AttendanceGraph />
         </GridItem>
       </Grid>
-      <Grid
-        templateColumns="repeat(1, 1fr)"
-        gap={2}
-        p={3}>
-        <GridItem colSpan={1} justifyContent="center" alignItems="center" mt="10px">
-          <AssetsCountGraph />
-        </GridItem>
-      </Grid>
+
     </>
   )
 }
