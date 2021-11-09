@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import { Box, Grid, Image, Flex, GridItem } from '@chakra-ui/react'
 import {
@@ -15,7 +15,8 @@ import Header from '../../components/Header'
 import Sidebar from '../../components/SideBar'
 import FormRegisterEquipment from '../../components/ModalRegisterEquipment'
 import FormTransferEquipment from '../../components/ModalTransferEquipment'
-import Graph from '../../components/Graph'
+import AttendanceGraph from '../../components/AttendanceGraph'
+import AssetsCountGraph from '../../components/AssetsCountGraph'
 import MUIDataTable from "mui-datatables"
 
 import { releaseFromClass, transfersFromClass } from '../../services/firebase'
@@ -27,7 +28,7 @@ import smartphone_icon from '../../assets/smartphone_icon.png'
 import warehouse_icon from '../../assets/warehouse_icon.png'
 import add_asset_icon from '../../assets/add_asset_icon.png'
 import transfer_icon from '../../assets/transfer_icon.png'
-import { MuiThemeProvider, createTheme  } from "@material-ui/core/styles";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false)
@@ -47,12 +48,12 @@ const Dashboard = () => {
     log_transfer2 = transfersFromClass;
     setDataLog(log_transfer2)
     setDataRelease(releaseFromClass)
-  }, 3000);
+  }, 1000);
 
   /* useEffect(() => {
     setDataLog(log_transfer2)
     setDataRelease(releaseFromClass)
-   }, [log_transfer2]);*/
+   }, [log_transfer2]); */
 
   const columns_releases = [
     {
@@ -145,31 +146,37 @@ const Dashboard = () => {
   // {data_test.forEach((item) => { console.log("foreach") console.log(item)})}  dsa
 
   const options = {
-    rowsPerPage: 5,
     jumpToPage: false,
-    filter: true,
-    filterType: 'dropdown',
-    responsive: 'standard',
+    responsive: "scroll", //standard
+    searchOpen: false, // init input fiel open
+    filter: false, // remove filter by data value itself
+    selectableRows: "none", //remove check box row on the left
+    rowsPerPage: [5], // set 10 rows for page
   };
 
-  
+
   return (
     <>
-      <Sidebar
-        isOpen={isSidebarOpen}
-        onClose={toggleSidebar}
-      />
+      <Box>
+        <Sidebar
+          isOpen={isSidebarOpen}
+          onClose={toggleSidebar}
+        />
+      </Box>
       <Box>
         <Header
           onShowSidebar={toggleSidebar}
           showSidebarButton={true}
         />
       </Box>
-      <Grid templateColumns="repeat(5, 1fr)" gap={2} p={3}>
+      <Grid
+        templateColumns="repeat(5, 1fr)"
+        gap={2}
+        p={3}>
         <Box w="100%" h="20" bg="#b1c0cd">
           <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
             <Image src={warehouse_icon} w={16} h={16} />
-            <p>1230 Itens totais</p>
+            <p>1230 All Assets</p>
           </Flex>
         </Box>
         <Box w="100%" h="20" bg="#b1c0cd">
@@ -181,13 +188,13 @@ const Dashboard = () => {
         <Box w="100%" h="20" bg="#b1c0cd">
           <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
             <Image src={monitor_icon} w={16} h={16} />
-            <p>264 Monitores</p>
+            <p>264 Monitors</p>
           </Flex>
         </Box>
         <Box w="100%" h="20" bg="#b1c0cd">
           <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
             <Image src={smartphone_icon} w={16} h={16} />
-            <p>167   Smartphones</p>
+            <p>167 Smartphones</p>
           </Flex>
         </Box>
         <Box w="100%" h="20">
@@ -214,23 +221,22 @@ const Dashboard = () => {
         </Box>
       </Grid>
       <Grid
-        h="300px"
-        templateRows="repeat(2, 1fr)"
-        templateColumns="repeat(4, 1fr)"
+        templateRows="repeat(3, 1fr)"
+        templateColumns="repeat(2, 1fr)"
         gap={5}
         p={10}
       >
-        <GridItem colSpan={2}>
+        <GridItem colSpan={1}>
           <MuiThemeProvider>
-          <MUIDataTable
-            title={"Releases"}
-            data={dataRelease}
-            columns={columns_releases}
-            options={options}
-          />
+            <MUIDataTable
+              title={"Releases"}
+              data={dataRelease}
+              columns={columns_releases}
+              options={options}
+            />
           </MuiThemeProvider>
         </GridItem>
-        <GridItem colSpan={2}>
+        <GridItem colSpan={1}>
           <MUIDataTable
             title={"Transfers"}
             data={dataLog}
@@ -239,7 +245,18 @@ const Dashboard = () => {
           />
         </GridItem>
         <GridItem colSpan={2} justifyContent="center" alignItems="center" mt="10px">
-          <Graph />
+          <AssetsCountGraph />
+        </GridItem>
+        <GridItem colSpan={2} justifyContent="center" alignItems="center" mt="10px">
+          <AttendanceGraph />
+        </GridItem>
+      </Grid>
+      <Grid
+        templateColumns="repeat(1, 1fr)"
+        gap={2}
+        p={3}>
+        <GridItem colSpan={1} justifyContent="center" alignItems="center" mt="10px">
+          <AssetsCountGraph />
         </GridItem>
       </Grid>
     </>
