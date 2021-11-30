@@ -1,7 +1,6 @@
 import React from 'react'
 import {
     Button,
-    useDisclosure,
     FormControl,
     FormLabel,
     Input,
@@ -12,8 +11,6 @@ import {
 
 
 const FormRegister = () => {
-    const {  onClose } = useDisclosure()
-
     const initialRef = React.useRef()
 
     return (
@@ -47,8 +44,8 @@ const FormRegister = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button bg="blue.400" mr={3}>Register</Button>
-            <Button bg="lightblue" onClick={onClose}>Cancel</Button>
+            <Button bg="#b1c0cd" mr={3}>Register one</Button>
+            <Button bg="#b1c0cd" mr={1}>Sequencial</Button>
           </ModalFooter>
         </>
       )

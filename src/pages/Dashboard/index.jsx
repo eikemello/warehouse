@@ -29,6 +29,7 @@ import warehouse_icon from '../../assets/warehouse_icon.png'
 import add_asset_icon from '../../assets/add_asset_icon.png'
 import transfer_icon from '../../assets/transfer_icon.png'
 import { MuiThemeProvider } from "@material-ui/core/styles";
+import './style.css'
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false)
@@ -56,14 +57,6 @@ const Dashboard = () => {
    }, [log_transfer2]); */
 
   const columns_releases = [
-    {
-      name: "key",
-      label: "Date",
-      options: {
-        filter: true,
-        sort: true,
-      }
-    },
     {
       name: "responsible",
       label: "Responsible",
@@ -96,6 +89,14 @@ const Dashboard = () => {
         sort: true,
       }
     },
+    {
+      name: "key",
+      label: "Date",
+      options: {
+        filter: true,
+        sort: true,
+      }
+    }
   ];
 
   const columns_transfer = [
@@ -147,7 +148,7 @@ const Dashboard = () => {
 
   const options = {
     jumpToPage: false,
-    responsive: "scroll", //standard
+    responsive: "standard", //standard
     searchOpen: false, // init input fiel open
     filter: false, // remove filter by data value itself
     selectableRows: "none", //remove check box row on the left
@@ -171,8 +172,8 @@ const Dashboard = () => {
       </Box>
       <Grid
         templateColumns="repeat(5, 1fr)"
-        gap={2}
-        p={3}>
+        gap={1}
+        p={5}>
         <Box w="100%" h="20" bg="#b1c0cd">
           <Flex justifyContent="space-evenly" alignItems="center" marginTop="10px">
             <Image src={warehouse_icon} w={16} h={16} />
@@ -224,7 +225,7 @@ const Dashboard = () => {
         templateRows="repeat(3, 1fr)"
         templateColumns="repeat(2, 1fr)"
         gap={5}
-        p={10}
+        p={5}
       >
         <GridItem colSpan={1}>
           <MuiThemeProvider>
@@ -251,7 +252,6 @@ const Dashboard = () => {
           <AttendanceGraph />
         </GridItem>
       </Grid>
-
     </>
   )
 }

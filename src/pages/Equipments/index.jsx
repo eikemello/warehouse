@@ -80,28 +80,24 @@ const Equipments = () => {
         <>
             <Sidebar
                 isOpen={isSidebarOpen}
-                onClose={toggleSidebar}
-            />
+                onClose={toggleSidebar}/>
             <Box>
                 <Header
                     onShowSidebar={toggleSidebar}
-                    showSidebarButton={true}
-                />
+                    showSidebarButton={true}/>
             </Box>
             <Grid
                 h="300px"
                 templateRows="repeat(2, 1fr)"
                 templateColumns="repeat(2, 1fr)"
                 gap={5}
-                p={10}
-            >
+                p={10}>
                 <GridItem colSpan={2}>
                     <MUIDataTable
                         title={"Assets"}
                         data={dataEquip}
                         columns={columns}
-                        options={options}
-                    />
+                        options={options}/>
                 </GridItem>
             </Grid>
         </>

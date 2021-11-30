@@ -1,0 +1,16 @@
+.rv-xy-plot__axis__tick__text { 
+    /*style from graph labels X Y */
+    fill: black;
+    font-size: 15px;
+}
+.rv-xy-plot__grid-lines__line {
+    /* background lines */
+    stroke: rgb(128, 124, 124);
+}
+
+.rv-xy-plot__axis__line {
+    /* unique line X and Y */
+    fill: none;
+    stroke-width: 1px;
+    stroke: rgb(110, 106, 106);
+}

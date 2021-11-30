@@ -1,7 +1,6 @@
 import React from 'react'
 import {
     Button,
-    useDisclosure,
     FormControl,
     FormLabel,
     Input,
@@ -12,8 +11,6 @@ import {
 
 
 const FormTransfer = () => {
-    const { onClose } = useDisclosure()
-
     const initialRef = React.useRef()
 
     return (
@@ -23,7 +20,6 @@ const FormTransfer = () => {
               <FormLabel>From</FormLabel>
               <Input autoComplete="false" type="text"  ref={initialRef} border="2px" borderColor="#b1c0cd"/>
             </FormControl>
-
             <FormControl mt={4} isRequired>
               <FormLabel>To</FormLabel>
               <Input autoComplete="false" type="text" border="2px" borderColor="#b1c0cd"/>
@@ -33,12 +29,8 @@ const FormTransfer = () => {
               <Input autoComplete="false" type="text" border="2px" borderColor="#b1c0cd"/>
             </FormControl>
           </ModalBody>
-            
           <ModalFooter>
-            <Button bg="blue.400" mr={3}>
-              Transfer
-            </Button>
-            <Button bg="lightblue" onClick={onClose}>Cancel</Button>
+            <Button bg="#b1c0cd" mr={3}>Transfer</Button>
           </ModalFooter>
         </>
     )
